@@ -1,0 +1,331 @@
+/* 
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background: #000116; */
+    background: #4a4a4b;
+}
+
+/* ================================================================================================ */
+.slider {
+    position: relative;
+
+    /* width: 800px; */
+    width: 1280px;
+
+    /* Chú ý: dùng min-height sẽ có ý nghĩa khác với chỉ dùng "height" */
+    /* min-height: 500px; */
+
+    /* min-height: 800px; */
+    height: 800px;
+
+    margin: 20px;
+
+    overflow: hidden;
+
+    /* border-radius: 10px; */
+    border-radius: 20px;
+
+    /* border: 1px solid red; */
+}
+
+/* ================================================================================================ */
+.slider .slide {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    /* clip-path: circle(0% at 0 50%); */
+
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.slider .slide.active {
+    /* clip-path: circle(150% at 0 50%); */
+
+    transform: scaleX(1);
+    
+    transition: 1.5s ease-out;
+}
+
+/* ================================================================================================ */
+.slider .slide img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ================================================================================================ */
+/* 
+The rgb() function accepts three space-separated values, representing respectively values for red, green, and blue. 
+
+Optionally it may also be given a slash / followed by a fourth value, representing alpha.
+*/
+.slider .slide .info {
+    position: absolute;
+    color: #222;
+
+    background: rgba(255, 255, 255, 0.3);
+
+    width: 75%;
+    
+    margin-top: 50px;
+    margin-left: 50px;
+
+    /* tại sao không dùng cái này ??? mà lại dùng margin ???
+    Lý do có thể là để sau này dùng responsive để xác định vị trí
+    */
+    /* top: 50px; */
+    /* left: 50px; */
+
+    padding: 20px;
+    border-radius: 5px;
+
+    /* box-shadow: 0px 5px 25px 0px rgb(1 1 1 / 5%); */
+    box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 0.4);
+
+    /* border: 1px solid red; */
+}
+
+/* ================================================================================================ */
+.slider .slide .info h2 {
+    font-size: 2em;
+    font-weight: 800;
+}
+
+.slider .slide .info p {
+    font-size: 1em;
+    font-weight: 400;
+
+    /* tự thêm vô */
+    margin-top: 10px;
+    line-height: 1.4;
+    text-align: justify;
+}
+
+/* ================================================================================================ */
+/* 
+Note: z-index only works on positioned elements (position: absolute, position: relative, position: fixed, or position: sticky) and flex items (elements that are direct children of display:flex elements).
+===>>> vì ".navigation" có "flex" nên có thể set z-index cho con của nó là ".prev-btn, .next-btn"
+*/
+.slider .navigation {
+    /* height: 500px; */
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* Giấu btn đi */
+    /* opacity: 0; */
+
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* .slider:hover .navigation {
+    opacity: 1;
+} */
+
+/* ================================================================================================ */
+.prev-btn, .next-btn {
+    z-index: 999;
+
+    font-size: 2em;
+
+    color: #222;
+    background: rgba(255, 255, 255, 0.5);
+
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev-btn {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.next-btn {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+/* ================================================================================================ */
+.navigation-visibility {
+    z-index: 999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation-visibility .slide-icon {
+    z-index: 999;
+
+    background: rgba(255, 255, 255, 0.6);
+
+    /* width: 20px; */
+    width: 30px;
+
+    height: 10px;
+
+    transform: translateY(-50px);
+    margin: 0px 6px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
+
+    transition: background 0.3s ease-in-out;
+}
+
+.navigation-visibility .slide-icon:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.navigation-visibility .slide-icon.active {
+    background: #4285f4;
+}
+
+/* ================================================================================================ */
+/* Tablet SS s7 nằm ngang */
+@media (max-width: 1280px) {
+    .slider {
+        width: 960px;
+        height: 600px;
+    }
+}
+
+/* ================================================================================================ */
+/* Tablet SS s7 nằm đứng => portrait */
+@media screen and (max-width: 800px) and (orientation: portrait){
+    .slider {
+        /* width: 100%; */
+        width: 736px;
+        height: 460px;
+    }
+
+    .slider .slide .info {
+        /* Xem lý do tại sao lại dùng cái này ở dưới
+        ==>> bởi vì dùng margin:auto ==>> chỉ có hiệu quả với "position: relative;"
+        */
+        position: relative;
+
+        width: 80%;
+
+        /* Căn giữa */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Mobil phone S21 ultra nằm ngang ==>> landscape */
+@media screen and (max-width: 800px) and (orientation: landscape) {
+    .slider {
+        width: 600px;
+        height: 260px;
+    }
+    
+    .slider .slide .info {
+        padding: 5px;
+        margin-top: 10px;
+
+        width: 70%;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .slider .slide .info h2 {
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+    .slider .slide .info p {
+        font-size: 11px;
+    }
+
+    .navigation-visibility .slide-icon {
+        transform: translateY(-40px);
+    }
+}
+
+/* Mobil phone nằm đứng */
+@media (max-width: 412px) {
+    .slider {
+        width: 384px;
+        height: 240px;
+    }
+
+    .slider .slide .info {
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+    .slider .slide .info h2 {
+        font-size: 13px;
+
+        line-height: 1.3;
+    }
+
+    .slider .slide .info p {
+        font-size: 9px;
+    }
+
+    .navigation-visibility .slide-icon {
+        width: 20px;
+        height: 10px;
+
+        transform: translateY(-25px);
+    }
+}
+
+/* ================================================================================================ */
+/* 
+Lý do tại sao "margin:auto" không có tác dụng với "position:absolute"
+https://stackoverflow.com/questions/9998260/css-absolute-position-wont-work-with-margin-leftauto-margin-right-auto
+
+# All answers were just a suggested solutions or workarounds. But still don't get answer to the question: why margin:auto works with position:relative but does not with position:absolute.
+
+Following explanation was helpful for me:
+
+"Margins make little sense on "absolutely" positioned elements since such elements "are removed from the normal flow", thus "they cannot push away any other elements on the page". Using margins like this can only affect the placement of the element to which the margin is applied, not any other element." http://www.justskins.com/forums/css-margins-and-absolute-82168.html
+
+
+# This issue can be confusing until you realize some nuances of different positionings.
+
+Margins work similarly for relative and absolute elements, but margins are relative to a "bounding box". You have to consider what is the bounding box of the element, to apply margins against.
+
+For a "relative" positioned element, the bounding box is its "parent" element.
+For an "absolute" positioned element, the bounding box is "itself".
+
+For a relative positioned element, left/right/top/bottom rules position the element itself.
+For an absolute positioned element, left/right/top/bottom rules position the element's bounding box.
+
+This is why to center a relative positioned element, you only have to set margins and it works.
+
+To center an absolute positioned element, you have to set the margins, and also set the bounding box (left/right/top/bottom).
+
+
+*/
+
+
