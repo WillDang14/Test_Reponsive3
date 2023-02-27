@@ -270,7 +270,7 @@ Note: z-index only works on positioned elements (position: absolute, position: r
 }
 
 /* Mobil phone nằm đứng */
-@media (max-width: 412px) {
+@media screen and (max-width: 412px) and (orientation: portrait) {
     .slider {
         width: 384px;
         height: 240px;
